@@ -1,0 +1,46 @@
+/**
+ * @author Brian Kernighan
+ */
+public class Student {
+
+    /**
+     * Query for the matric number of the student.
+     * @return the matric
+     */
+    public int getMatric (  ) {
+
+    /**
+     * Sets the matric number of the student.
+     * @param matric the matric number
+     */
+    public void setMatric ( int matric ) {
+
+    /**
+     * Query for the name of the student.
+     * @return the name
+     */
+    public String getName ( ) {
+
+    /**
+     * Sets the name of the student.
+     * @param name the name
+     */
+    public void setName ( String name ) {
+
+    /**
+     * Query for the address of the student.
+     * @return the address
+     */
+    public String getAddress ( ) {
+
+    /**
+     * Sets the address of the student.
+     * @param address the address
+     */
+    public void setAddress ( String address ) {
+
+    /**
+     * @return a string representation of the Student
+     */
+    public String toString ( ) {
+
