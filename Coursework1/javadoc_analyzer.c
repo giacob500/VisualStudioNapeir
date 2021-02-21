@@ -16,35 +16,26 @@ int main(int argc, char** argv)
 		if (strcmp(line, "\n")) {
 			nonblankCounter++;
 		}
-
-		int sentence_length = strlen(line);
-		char token[100];
-		int token_index;
-		int sentence_index = 0;
-		while (sentence_index < sentence_length && line[sentence_index] != '\n')
-		{
-			token[0] = '\0';
-			token_index = 0;
-			while (line[sentence_index] != ' ') {
-				token[token_index] = line[sentence_index];
-				sentence_index++;
-				token_index++;
-			}
-			token[token_index] = '\0';
-			printf("%s			%d\n", token, commentStatus);
-			sentence_index++;
+		char* delimiters = " .,\n";
+		char* token = strtok(line, delimiters);
+		// Loop to pass through the single words
+		while (token != NULL) {
+			printf("%s\n", token);
+			// Check if the word equals to the start or the end of a comment
 			if (strcmp(token, "/**") == 0) {
 				commentStatus++;
 			}
 			else if (strcmp(token, "*/") == 0 && commentStatus == 1) {
 				commentStatus++;
 			}
+			token = strtok(NULL, delimiters);
 		}
 		if (commentStatus == 2) {
 			commentCounter++;
 			commentStatus = 0;
 		}
 	}
+
 	printf("Total number of lines: %d\n", lineCounter);
 	printf("Number of non-blank lines: %d\n", nonblankCounter);
 	printf("Number of Javadoc comments: %d\n", commentCounter);
