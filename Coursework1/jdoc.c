@@ -72,7 +72,17 @@ void countStuff() {
 
 int main(int argc, char** argv)
 {
-	writeOutputFile();
-	countStuff();
+	// If the parameters are all inserted go on
+	if (argc == 5) {
+		if (!strcmp(argv[1], "-i") || !strcmp(argv[3], "-o")) {
+			printf("SUCCESS\n"); // DEBUG
+			writeOutputFile();
+			countStuff();
+		}
+	}
+	else {
+		printf("Error: number of parameters inserted not sufficent\n");
+	}
+	
 	return 0;
 }
