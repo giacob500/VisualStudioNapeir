@@ -32,17 +32,65 @@ void writeOutputFile(char* inputFile, char* outputFile) {
 	fclose(textFile);
 }
 
-void countStuff() {
+void promptInfos(char* inputFile) {
+	int copyN = 0;
+	int copyI = 0;
+	char name[100];
+	char info[100];
+	FILE* javaFile = fopen(inputFile, "r");
+	char line[1000];
+	char lineCopy[1000];
+	while (fgets(line, 1000, javaFile) != NULL) {
+		strcpy(lineCopy, line);
+		char* delimiters = " .,\n";
+		char* token = strtok(line, delimiters);
+		// Loop to pass through the single words
+		while (token != NULL) {
+			if (copyN == 2) {
+				strcat(info, " ");
+				strcat(info, token);
+				strcat(info, "\n");
+				copyN = 0;
+			}
+			if (copyN == 1) {
+				strcat(info, token);
+				copyN = 2;
+			}
+			if (strcmp(token, "class") == 0) {
+				// Locate "author", "parameter" or "return" name based on substring location 
+				copyN = 1;
+			}
+			if (strcmp(token, "@author") == 0) {
+				// Locate "author", "parameter" or "return" name based on substring location 
+				copyN = 1;
+			}
+			if (strcmp(token, "@param") == 0) {
+				// Locate "author", "parameter" or "return" name based on substring location 
+				copyN = 1;
+			}
+			if (strcmp(token, "@return") == 0) {
+				// Locate "author", "parameter" or "return" name based on substring location 
+				copyN = 1;
+			}
+			token = strtok(NULL, delimiters);
+		}
+		printf("%s\n", name);
+		printf("%s\n", info);
+	}
+	fclose(javaFile);
+}
+
+
+void countStuff(char* inputFile) {
 	int lineCounter = 0;
 	int nonblankCounter = 0;
 	int commentStatus = 0;
 	int commentCounter = 0;
-	FILE* javaFile = fopen("test_files/Student.java", "r");
+	FILE* javaFile = fopen(inputFile, "r");
 	char line[1000];
 	while (fgets(line, 1000, javaFile) != NULL)
 	{
 		lineCounter++;
-		//printf("%s", line);
 		if (strcmp(line, "\n")) {
 			nonblankCounter++;
 		}
@@ -75,10 +123,10 @@ int main(int argc, char** argv)
 	// If the parameters are all inserted go on
 	if (argc == 5) {
 		if (!strcmp(argv[1], "-i") || !strcmp(argv[3], "-o")) {
-			printf("SUCCESS\n"); // DEBUG
 			char* inputFile = argv[2];
 			char* outputFile = argv[4];
 			writeOutputFile(inputFile, outputFile);
+			promptInfos(inputFile);
 			countStuff(inputFile);
 		}
 		else {
