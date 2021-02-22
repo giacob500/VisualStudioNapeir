@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 
-void writeOutputFile() {
+void writeOutputFile(char* inputFile, char* outputFile) {
 	int write = 0;
-	FILE* javaFile = fopen("test_files/Student.java", "r");
-	FILE* textFile = fopen("output.txt", "w");
+	FILE* javaFile = fopen(inputFile, "r");
+	FILE* textFile = fopen(outputFile, "w");
 	char line[1000];
 	char lineCopy[1000];
 	while (fgets(line, 1000, javaFile) != NULL) {
@@ -76,8 +76,13 @@ int main(int argc, char** argv)
 	if (argc == 5) {
 		if (!strcmp(argv[1], "-i") || !strcmp(argv[3], "-o")) {
 			printf("SUCCESS\n"); // DEBUG
-			writeOutputFile();
-			countStuff();
+			char* inputFile = argv[2];
+			char* outputFile = argv[4];
+			writeOutputFile(inputFile, outputFile);
+			countStuff(inputFile);
+		}
+		else {
+			printf("Error: incorrect parameter syntax");
 		}
 	}
 	else {
