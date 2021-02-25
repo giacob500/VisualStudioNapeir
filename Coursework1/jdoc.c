@@ -16,7 +16,6 @@ void writeOutputFile(char* inputFile, char* outputFile) {
 			// Check if the word equals to the start or the end of a comment
 			if (strcmp(token, "/**") == 0) {
 				write = 1;
-
 			}
 			else if (strcmp(token, "{") == 0 && write == 1) {
 				fprintf(textFile, "%s\n", lineCopy);
@@ -33,50 +32,41 @@ void writeOutputFile(char* inputFile, char* outputFile) {
 }
 
 void promptInfos(char* inputFile) {
-	int copyN = 0;
-	int copyI = 0;
-	char name[100];
+	int saveNextToken = 0;
 	char info[100];
+	memset(info, 0, 100);
+	char name[100];
 	FILE* javaFile = fopen(inputFile, "r");
 	char line[1000];
 	char lineCopy[1000];
+
 	while (fgets(line, 1000, javaFile) != NULL) {
 		strcpy(lineCopy, line);
 		char* delimiters = " .,\n";
 		char* token = strtok(line, delimiters);
 		// Loop to pass through the single words
 		while (token != NULL) {
-			if (copyN == 2) {
-				strcat(info, " ");
-				strcat(info, token);
+			if (!strcmp(token, "*/")) {
 				strcat(info, "\n");
-				copyN = 0;
+				saveNextToken = 0;			
 			}
-			if (copyN == 1) {
+			if (saveNextToken == 1) {				
 				strcat(info, token);
-				copyN = 2;
+				strcat(info, " ");
 			}
-			if (strcmp(token, "class") == 0) {
-				// Locate "author", "parameter" or "return" name based on substring location 
-				copyN = 1;
+			if (!strcmp(token, "@author")) {
+				saveNextToken = 1;
 			}
-			if (strcmp(token, "@author") == 0) {
-				// Locate "author", "parameter" or "return" name based on substring location 
-				copyN = 1;
+			if (!strcmp(token, "@param")) {
+				saveNextToken = 1;
 			}
-			if (strcmp(token, "@param") == 0) {
-				// Locate "author", "parameter" or "return" name based on substring location 
-				copyN = 1;
+			if (!strcmp(token, "@return")) {
+				saveNextToken = 1;
 			}
-			if (strcmp(token, "@return") == 0) {
-				// Locate "author", "parameter" or "return" name based on substring location 
-				copyN = 1;
-			}
-			token = strtok(NULL, delimiters);
-		}
-		printf("%s\n", name);
-		printf("%s\n", info);
-	}
+			token = strtok(NULL, delimiters);			
+		}		
+	}	
+	printf("%s\n", info);
 	fclose(javaFile);
 }
 
@@ -122,7 +112,7 @@ int main(int argc, char** argv)
 {
 	// If the parameters are all inserted go on
 	if (argc == 5) {
-		if (!strcmp(argv[1], "-i") || !strcmp(argv[3], "-o")) {
+		if (!strcmp(argv[1], "-i") && !strcmp(argv[3], "-o")) {
 			char* inputFile = argv[2];
 			char* outputFile = argv[4];
 			writeOutputFile(inputFile, outputFile);
@@ -130,12 +120,12 @@ int main(int argc, char** argv)
 			countStuff(inputFile);
 		}
 		else {
-			printf("Error: incorrect parameter syntax");
+			printf("Error: incorrect parameter syntax\n");
 		}
 	}
 	else {
 		printf("Error: number of parameters inserted not sufficent\n");
 	}
-	
+
 	return 0;
 }
