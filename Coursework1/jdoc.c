@@ -37,55 +37,62 @@ void promptInfos(char* inputFile) {
 	int author = 0;
 	int param = 0;
 	int retrn = 0;
+	int clas = 0;
 
 
 	char info[100] = "";
-	
-	//memset(info, 0, 100);	//<--------------------------------- CAN I DO THIS?
+	char saveForLater[100] = "";
+	//memset(info, 0, 100);
 	printf("%s\n", info);
 	FILE* javaFile = fopen(inputFile, "r");
 	char line[1000];
-	printf("\n");
 	while (fgets(line, 1000, javaFile) != NULL) {
 		char* delimiters = " .,;\n";
 		char* token = strtok(line, delimiters);
 		// Loop to pass through the single words
 		while (token != NULL) {
-			if (!strcmp(token, "*/")) {
-				strcat(info, "\n\n");
-				saveNextToken = 0;			
+			if (!strcmp(token, "*/") || !strcmp(token, "{")) {
+				printf("\n");
+				saveNextToken = 0;
+				author = 0;
+				clas = 0;
 			}
-			if (saveNextToken == 1) {
-				if (author == 1) {
-					strcat(info, "Author: ");
-					author = 0;
-				}
-				else if (param == 1) {
-					strcat(info, "Parameter: ");
-					param = 0;
-				}
-				else if (retrn == 1) {
-					strcat(info, "Returns: ");
-					retrn = 0;
-				}
-				strcat(info, token);
-				strcat(info, " ");
+
+			if (author == 1) {
+				strcat(saveForLater, token);
+				strcat(saveForLater, " ");
 			}
-			if (!strcmp(token, "@author")) {
+			else if (clas == 1) {
+				printf("Class: %s\n", token);
+				printf("Author: %s\n", saveForLater);
+
+			}
+
+			else if (saveNextToken == 1) {
+				printf("%s ", token);
+			}
+			else if (!strcmp(token, "@return")) {
+				printf("Rtuerns: ");
 				saveNextToken = 1;
+			}
+			else if (!strcmp(token, "@param")) {
+				printf("Parameter: ");
+				saveNextToken = 1;
+			}
+
+			else if (!strcmp(token, "@author")) {
 				author = 1;
 			}
-			if (!strcmp(token, "@param")) {
-				saveNextToken = 1;
-				param = 1;
+			else if (!strcmp(token, "class")) {
+				clas = 1;
 			}
-			if (!strcmp(token, "@return")) {
-				saveNextToken = 1;
-				retrn = 1;
-			}
-			token = strtok(NULL, delimiters);			
+			
+			//check if it is a method
+
+
+			token = strtok(NULL, delimiters);
 		}
-	}	
+	}
 	printf("%s\n", info);
 	fclose(javaFile);
 }
@@ -141,7 +148,7 @@ int main(int argc, char** argv)
 			}
 			else {
 				printf("Error: input file is not a java file\n");
-			}			
+			}
 		}
 		else {
 			printf("Error: incorrect parameter syntax or order\n");
