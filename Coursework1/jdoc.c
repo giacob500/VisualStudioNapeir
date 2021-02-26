@@ -34,12 +34,11 @@ void writeOutputFile(char* inputFile, char* outputFile) {
 void promptInfos(char* inputFile) {
 	int saveNextToken = 0;
 	char info[100];
-	memset(info, 0, 100);
+	memset(info, 0, 100); // CAN I DO THIS?
 	char name[100];
 	FILE* javaFile = fopen(inputFile, "r");
 	char line[1000];
 	char lineCopy[1000];
-
 	while (fgets(line, 1000, javaFile) != NULL) {
 		strcpy(lineCopy, line);
 		char* delimiters = " .,\n";
@@ -50,7 +49,7 @@ void promptInfos(char* inputFile) {
 				strcat(info, "\n");
 				saveNextToken = 0;			
 			}
-			if (saveNextToken == 1) {				
+			if (saveNextToken == 1) {
 				strcat(info, token);
 				strcat(info, " ");
 			}
@@ -69,7 +68,6 @@ void promptInfos(char* inputFile) {
 	printf("%s\n", info);
 	fclose(javaFile);
 }
-
 
 void countStuff(char* inputFile) {
 	int lineCounter = 0;
@@ -113,14 +111,19 @@ int main(int argc, char** argv)
 	// If the parameters are all inserted go on
 	if (argc == 5) {
 		if (!strcmp(argv[1], "-i") && !strcmp(argv[3], "-o")) {
-			char* inputFile = argv[2];
-			char* outputFile = argv[4];
-			writeOutputFile(inputFile, outputFile);
-			promptInfos(inputFile);
-			countStuff(inputFile);
+			if (strstr(argv[2], ".java") != NULL) {
+				char* inputFile = argv[2];
+				char* outputFile = argv[4];
+				writeOutputFile(inputFile, outputFile);
+				promptInfos(inputFile);
+				countStuff(inputFile);
+			}
+			else {
+				printf("Error: input file is not a java file\n");
+			}			
 		}
 		else {
-			printf("Error: incorrect parameter syntax\n");
+			printf("Error: incorrect parameter syntax or order\n");
 		}
 	}
 	else {
