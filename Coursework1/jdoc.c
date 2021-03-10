@@ -83,7 +83,7 @@ void promptInfos(char* inputFile) {
 				// ADD HERE
 				/*
 				char str[100];
-				char new_char = 'a';*/				
+				char new_char = 'a';*/
 				//...
 					// adds new_char to existing string:
 				/*
@@ -122,8 +122,16 @@ void promptInfos(char* inputFile) {
 			}
 
 			else if (saveNextToken == 1) {
-				strcat(saveForLater, token);
-				strcat(saveForLater, " ");
+				if (strcmp(token, "@param")) {
+					strcat(saveForLater, token);
+					strcat(saveForLater, " ");
+				}
+				else {
+					//printf("saveForLaterWord: %s-\n", saveForLater);
+					//printf("saveForLaterChar: %c\n", saveForLater[strlen(saveForLater) - 2]);
+					saveForLater[strlen(saveForLater) - 2] = '\0';
+					strcat(saveForLater, "\nParameter: ");
+				}
 			}
 			else if (!strcmp(token, "@return")) {
 				saveNextToken = 1;
@@ -145,7 +153,7 @@ void promptInfos(char* inputFile) {
 			//qui ci va un for che scorre tutti gli elementi della lista con dentro l'if sotto
 			for (int i = 0; i < arraySize; ++i) {
 				if (!strcmp(token, (char*)objects[i]) && possibleMethod == 0) {
-					possibleMethod = 1;					
+					possibleMethod = 1;
 				}
 			}
 			token = strtok(NULL, delimiters);
@@ -156,31 +164,37 @@ void promptInfos(char* inputFile) {
 }
 
 void countStuff(char* inputFile) {
+	int tokenCounter = 0;
 	int lineCounter = 0;
 	int nonblankCounter = 0;
 	int commentStatus = 0;
 	int commentCounter = 0;
 	FILE* javaFile = fopen(inputFile, "r");
 	char line[1000];
+	int emptyLine = 0;
 	while (fgets(line, 1000, javaFile) != NULL)
 	{
+		tokenCounter = 0;
+		emptyLine = 0;
 		lineCounter++;
-		if (strcmp(line, "\n")) {
-			nonblankCounter++;
-		}
-		char* delimiters = " .,\n";
+		char* delimiters = " .,\t\n";
 		char* token = strtok(line, delimiters);
 		// Loop to pass through the single words
 		while (token != NULL) {
+			tokenCounter++;
 			// Check if the word equals to the start or the end of a comment
 			if (strcmp(token, "/**") == 0) {
-				commentStatus++;
+				commentStatus = 1;
 			}
 			else if (strcmp(token, "*/") == 0 && commentStatus == 1) {
-				commentStatus++;
+				commentStatus = 2;
 			}
 			token = strtok(NULL, delimiters);
 		}
+		if (tokenCounter > 0) {
+			nonblankCounter++;
+		}
+
 		if (commentStatus == 2) {
 			commentCounter++;
 			commentStatus = 0;
@@ -196,6 +210,8 @@ int main(int argc, char** argv)
 {
 	// If the parameters are all inserted go on
 	if (argc == 5) {
+		// get number of arguments typed in input
+		int size = sizeof argv / sizeof argv[0];
 		if (!strcmp(argv[1], "-i") && !strcmp(argv[3], "-o")) {
 			if (strstr(argv[2], ".java") != NULL) {
 				char* inputFile = argv[2];
@@ -215,6 +231,5 @@ int main(int argc, char** argv)
 	else {
 		printf("Error: number of parameters inserted not sufficent\n");
 	}
-
 	return 0;
 }

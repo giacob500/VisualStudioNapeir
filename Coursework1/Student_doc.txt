@@ -1,46 +1,59 @@
 /** 
- * @author Brian Kernighan
+ * @author Bjarne Stroustrup
  */
-public class Student {
+public class Rectangle {
 
     /**
-     * Query for the matric number of the student.
-     * @return the matric
+     * Query for the length of the rectangle.
+     * @return the length
      */
-    public int getMatric (  ) {
+    public double getLength ( ) {
 
     /**
-     * Sets the matric number of the student.
-     * @param matric the matric number
+     * Sets the length of the rectangle.
+     * @param length the length
      */
-    public void setMatric ( int matric ) {
+    public void setLength ( double length ) {
 
     /**
-     * Query for the name of the student.
-     * @return the name
+     * Query for the width of the rectangle.
+     * @return the width
      */
-    public String getName ( ) {
+    public double getWidth ( ) {
 
     /**
-     * Sets the name of the student.
-     * @param name the name
+     * Sets the width of the rectangle.
+     * @param width the width
      */
-    public void setName ( String name ) {
+    public void setWidth ( double width ) {
 
     /**
-     * Query for the address of the student.
-     * @return the address
+     * Query for the area of the rectangle.
+     * @return the area (length * width)
      */
-    public String getAddress ( ) {
+    public double getArea ( ) {
 
-    /**
-     * Sets the address of the student.
-     * @param address the address
+     /**
+     * Query for the x coordinate of the rectangle.
+     * @return the x coordinate
      */
-    public void setAddress ( String address ) {
+    public int getX ( ) {
 
     /**
-     * @return a string representation of the Student
+     * Query for the y coordinate of the rectangle.
+     * @return the y coordinate
+     */
+    public int getY ( ) {
+
+    /**
+     * Moves the rectangle to a new position.
+     * @param x the new x coordinate
+     * @param y the new y coordinate
+     */
+    public void moveTo ( int x, int y ) {
+
+    /**
+     * @return a string representation of the Rectangle
      */
     public String toString ( ) {
 
