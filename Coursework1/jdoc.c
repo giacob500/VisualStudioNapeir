@@ -208,28 +208,48 @@ void countStuff(char* inputFile) {
 
 int main(int argc, char** argv)
 {
+	char* inputFile;
+	char* outputFile;
 	// If the parameters are all inserted go on
 	if (argc == 5) {
 		// get number of arguments typed in input
-		int size = sizeof argv / sizeof argv[0];
-		if (!strcmp(argv[1], "-i") && !strcmp(argv[3], "-o")) {
-			if (strstr(argv[2], ".java") != NULL) {
-				char* inputFile = argv[2];
-				char* outputFile = argv[4];
-				writeOutputFile(inputFile, outputFile);
-				promptInfos(inputFile);
-				countStuff(inputFile);
+		for (int i = 0; i < argc; i++) {
+			if (!strcmp(argv[i], "-i")) {
+				if (strstr(argv[i + 1], ".java") == NULL) {
+					printf("Error: input file is not a java file\n");
+					break;
+				}
+				else {
+					inputFile = argv[i + 1];
+				}				
 			}
-			else {
-				printf("Error: input file is not a java file\n");
-			}
+			else if (!strcmp(argv[i], "-o")) {
+				outputFile = argv[i + 1];
+			}		
 		}
-		else {
-			printf("Error: incorrect parameter syntax or order\n");
-		}
+		writeOutputFile(inputFile, outputFile);
+		promptInfos(inputFile);
+		countStuff(inputFile);
+			/*
+			if (!strcmp(argv[1], "-i") && !strcmp(argv[3], "-o")) {
+				if (strstr(argv[2], ".java") != NULL) {
+					char* inputFile = argv[2];
+					char* outputFile = argv[4];
+					writeOutputFile(inputFile, outputFile);
+					promptInfos(inputFile);
+					countStuff(inputFile);
+				}
+				else {
+					printf("Error: input file is not a java file\n");
+				}
+			}*/
+			
+		
+		/* SHOULD USE THIS SOMEWHERE IDK WHERE
+		*/
 	}
 	else {
-		printf("Error: number of parameters inserted not sufficent\n");
-	}
+		printf("Error: insufficient number of given parameters\n");
+	}  
 	return 0;
 }
