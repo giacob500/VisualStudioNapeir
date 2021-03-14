@@ -3,5 +3,4 @@ build:
 
 clean:
 	del *.obj
-	del *.asm
 	del *.exe

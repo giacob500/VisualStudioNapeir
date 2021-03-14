@@ -2,15 +2,19 @@
 #include <string.h>
 #include "countStuff.h"
 
-void countStuff(char* inputFile) {
+// Function to count elements in a given input java file ("inputFile")
+void countStuff(char* inputFile)
+{
+	int emptyLine = 0;
 	int tokenCounter = 0;
 	int lineCounter = 0;
 	int nonblankCounter = 0;
 	int commentStatus = 0;
 	int commentCounter = 0;
-	FILE* javaFile = fopen(inputFile, "r");
 	char line[1000];
-	int emptyLine = 0;
+	FILE* javaFile = fopen(inputFile, "r");
+
+	// Loop input file line by line
 	while (fgets(line, 1000, javaFile) != NULL)
 	{
 		tokenCounter = 0;
@@ -18,29 +22,38 @@ void countStuff(char* inputFile) {
 		lineCounter++;
 		char* delimiters = " .,\t\n";
 		char* token = strtok(line, delimiters);
-		// Loop to pass through the single words
-		while (token != NULL) {
+		// Loop line word by word
+		while (token != NULL)
+		{
 			tokenCounter++;
-			// Check if the word equals to the start or the end of a comment
-			if (strcmp(token, "/**") == 0) {
+			// Check if the word equals to the start or the end of a javadoc comment
+			if (strcmp(token, "/**") == 0)
+			{
 				commentStatus = 1;
 			}
-			else if (strcmp(token, "*/") == 0 && commentStatus == 1) {
+			else if (strcmp(token, "*/") == 0 && commentStatus == 1)
+			{
 				commentStatus = 2;
 			}
 			token = strtok(NULL, delimiters);
 		}
-		if (tokenCounter > 0) {
+		// If at least a token has been found on the current line increase non-blank counter
+		if (tokenCounter > 0)
+		{
 			nonblankCounter++;
 		}
-
-		if (commentStatus == 2) {
+		// If a javadoc comment has been found increase its counter
+		if (commentStatus == 2)
+		{
 			commentCounter++;
 			commentStatus = 0;
 		}
 	}
+	// Print results to console
 	printf("Total number of lines: %d\n", lineCounter);
 	printf("Number of non-blank lines: %d\n", nonblankCounter);
 	printf("Number of Javadoc comments: %d\n", commentCounter);
+
+	// Close file
 	fclose(javaFile);
 }

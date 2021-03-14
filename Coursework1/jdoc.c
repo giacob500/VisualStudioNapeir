@@ -4,33 +4,49 @@
 #include "promptInfos.h"
 #include "countStuff.h"
 
+/*
+ * Giacomo Lorenzi
+ * The program reads in a file of Java source code contained in a .java file, and
+ * analyses the Javadoc comments within it
+ */
+
 int main(int argc, char** argv)
 {
 	char* inputFile;
 	char* outputFile;
-	// If the parameters are all inserted go on
-	if (argc == 5) {
-		// get number of arguments typed in input
-		for (int i = 0; i < argc; i++) {
-			if (!strcmp(argv[i], "-i")) {
-				if (strstr(argv[i + 1], ".java") == NULL) {
+
+	// Check if the correct number of parametres are given
+	if (argc == 5)
+	{
+		// Find the "-i" and "-o" parameters to get input and output file names
+		for (int i = 0; i < argc; i++)
+		{
+			if (!strcmp(argv[i], "-i"))
+			{
+				// Check the input is a java file
+				if (strstr(argv[i + 1], ".java") == NULL)
+				{
 					printf("Error: input file is not a java file\n");
 					break;
 				}
-				else {
+				else
+				{
 					inputFile = argv[i + 1];
-				}				
+				}
 			}
-			else if (!strcmp(argv[i], "-o")) {
+			else if (!strcmp(argv[i], "-o"))
+			{
 				outputFile = argv[i + 1];
-			}		
+			}
 		}
+		// Call functions from other files
 		writeOutputFile(inputFile, outputFile);
 		promptInfos(inputFile);
-		countStuff(inputFile);			
+		countStuff(inputFile);
 	}
-	else {
-		printf("Error: insufficient number of given parameters\n");
-	}  
+	else
+	{
+		printf("Error: incorrect number of given parameters\n");
+	}
 	return 0;
 }
