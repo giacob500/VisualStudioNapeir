@@ -11,13 +11,13 @@ void writeOutputFile(char* inputFile, char* outputFile)
 	FILE* javaFile = fopen(inputFile, "r");
 	FILE* textFile = fopen(outputFile, "w");
 
-	// Loop input file line by line
+	// Analyze input file line by line
 	while (fgets(line, 1000, javaFile) != NULL)
 	{
 		strcpy(lineCopy, line);
 		char* delimiters = " .,\n";
 		char* token = strtok(line, delimiters);
-		// Loop line word by word
+		// Analyze line word by word
 		while (token != NULL)
 		{
 			// Check if the word equals to the start or the end of a javadoc comment

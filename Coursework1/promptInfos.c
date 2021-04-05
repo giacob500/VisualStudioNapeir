@@ -33,12 +33,12 @@ void promptInfos(char* inputFile)
 	};
 	FILE* javaFile = fopen(inputFile, "r");
 
-	// Loop input file line by line
+	// Analyze input file line by line
 	while (fgets(line, 1000, javaFile) != NULL)
 	{
 		char* delimiters = " .,;\n";
 		char* token = strtok(line, delimiters);
-		// Loop line word by word
+		// Analyze line word by word
 		while (token != NULL)
 		{
 			// If comment is closed or if method is opened reset flags
@@ -96,7 +96,7 @@ void promptInfos(char* inputFile)
 					strcat(saveForLater, " ");
 				}
 				else {
-					// Cut jaavdoc comment's asterisk(*) and add "Parameter:"
+					// Cut javadoc comment's asterisk(*) and add "Parameter:"
 					saveForLater[strlen(saveForLater) - 2] = '\0';
 					strcat(saveForLater, "\nParameter: ");
 				}

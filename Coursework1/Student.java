@@ -18,7 +18,6 @@ public class Student {
     /**
      * Sets the matric number of the student.
      * @param matric the matric number
-     * @return the matric
      */
     public void setMatric ( int matric ) {
         this.matric = matric;

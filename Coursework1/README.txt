@@ -12,7 +12,7 @@ Install program:
 
 	ATTENTION:
 	- When launching the program, input ("-i <input_file.java>")
-	and output ("-o <output_file>") order can be inverted.
+	and output ("-o <output_file>") order can be swapped.
 	- Input ("-i <input_file.java>") must be a .java file.
 
 Uninstall program:

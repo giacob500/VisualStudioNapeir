@@ -1,59 +1,46 @@
 /** 
- * @author Bjarne Stroustrup
+ * @author Brian Kernighan
  */
-public class Rectangle {
+public class Student {
 
     /**
-     * Query for the length of the rectangle.
-     * @return the length
+     * Query for the matric number of the student.
+     * @return the matric
      */
-    public double getLength ( ) {
+    public int getMatric (  ) {
 
     /**
-     * Sets the length of the rectangle.
-     * @param length the length
+     * Sets the matric number of the student.
+     * @param matric the matric number
      */
-    public void setLength ( double length ) {
+    public void setMatric ( int matric ) {
 
     /**
-     * Query for the width of the rectangle.
-     * @return the width
+     * Query for the name of the student.
+     * @return the name
      */
-    public double getWidth ( ) {
+    public String getName ( ) {
 
     /**
-     * Sets the width of the rectangle.
-     * @param width the width
+     * Sets the name of the student.
+     * @param name the name
      */
-    public void setWidth ( double width ) {
+    public void setName ( String name ) {
 
     /**
-     * Query for the area of the rectangle.
-     * @return the area (length * width)
+     * Query for the address of the student.
+     * @return the address
      */
-    public double getArea ( ) {
-
-     /**
-     * Query for the x coordinate of the rectangle.
-     * @return the x coordinate
-     */
-    public int getX ( ) {
+    public String getAddress ( ) {
 
     /**
-     * Query for the y coordinate of the rectangle.
-     * @return the y coordinate
+     * Sets the address of the student.
+     * @param address the address
      */
-    public int getY ( ) {
+    public void setAddress ( String address ) {
 
     /**
-     * Moves the rectangle to a new position.
-     * @param x the new x coordinate
-     * @param y the new y coordinate
-     */
-    public void moveTo ( int x, int y ) {
-
-    /**
-     * @return a string representation of the Rectangle
+     * @return a string representation of the Student
      */
     public String toString ( ) {
 

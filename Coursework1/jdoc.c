@@ -2,10 +2,11 @@
 #include <string.h>
 #include "writeOutputFile.h"
 #include "promptInfos.h"
-#include "countStuff.h"
+#include "countLinesComments.h"
 
 /*
  * Giacomo Lorenzi
+ * 
  * The program reads in a file of Java source code contained in a .java file, and
  * analyses the Javadoc comments within it
  */
@@ -42,7 +43,7 @@ int main(int argc, char** argv)
 		// Call functions from other files
 		writeOutputFile(inputFile, outputFile);
 		promptInfos(inputFile);
-		countStuff(inputFile);
+		countLinesComments(inputFile);
 	}
 	else
 	{
