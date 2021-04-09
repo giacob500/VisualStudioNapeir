@@ -6,48 +6,62 @@
 
 using namespace std;
 
-void infoToConsole(std::vector<string> tokens)
+/*
+// Needed variables - SECOND PART
+	string identifierName;
+	int lineNumber = 1;
+	string identifierType;
+	int identifierReferenced = 0;
+*/
+struct identifier {
+	string identifierName;
+	int lineNumber = 0;
+	string whatIs;
+	string identifierType;
+	int timesReferenced = 0;
+};
+
+void infoToConsole(vector<vector<string>> lines)
 {
 	// Determine all possible types a variable could be
-	std::vector<string> types{ "void", "char", "short", "int", "long", "long long", "float", "double",
+	vector<string> types{ "void", "char", "short", "int", "long", "long long", "float", "double",
 							"char*", "short*", "int*", "long*", "long long*", "float*", "double*" };
 
-	// Flags
-
-	// Counters
+	// Counters - FIRST PART
 	int variables = 0;
 	int functions = 0;
 	int ifstatements = 0;
 	int whileloops = 0;
 	int forloops = 0;
 
-
-	for (int i = 0; i < tokens.size(); i++) {
-
-		// Recognize struct
-		if (i < tokens.size() - 1 && tokens[i] == "struct") {
-			types.push_back(tokens[i + 1]);
-		}
-
-		// Recognize variables & functions
-		for (string type : types) {
-			if (i < tokens.size() - 2 && tokens[i] == type) {
-				if (tokens[i + 2] == "(")
-					functions++;
-				else
-					variables++;
-			}
-		}
-
-		// Recognize if statements, for and while loops
-		if (i < tokens.size() - 1 && tokens[i + 1] == "(")
+	for (int i = 0; i < lines.size(); i++) {
+		for (int j = 0; j < lines[i].size(); j++)
 		{
-			if (tokens[i] == "if")
-				ifstatements++;
-			else if (tokens[i] == "for")
-				forloops++;
-			else if (tokens[i] == "while")
-				whileloops++;
+			// Recognise struct
+			if (j < lines[i].size() - 1 && lines[i][j] == "struct") {
+				types.push_back(lines[i][j + 1]);
+			}
+			// Recognise variables & functions
+			for (string type : types) {
+				if (j < lines[i].size() - 2 && lines[i][j] == type) {
+					if (lines[i][j + 2] == "(") {
+						functions++;
+					}
+					else {
+						variables++;
+					}
+				}
+			}
+			// Recognise if statements, for and while loops
+			if (j < lines[i].size() - 1 && lines[i][j + 1] == "(")
+			{
+				if (lines[i][j] == "if")
+					ifstatements++;
+				else if (lines[i][j] == "for")
+					forloops++;
+				else if (lines[i][j] == "while")
+					whileloops++;
+			}
 		}
 	}
 
@@ -58,6 +72,97 @@ void infoToConsole(std::vector<string> tokens)
 	cout << "Functions: " << whileloops << endl;
 }
 
+void writeOutputFile(vector<vector<string>> lines)
+{
+	int line = 1;
+	int arrayFound = 0;
+	vector<identifier> identifiers;
+	// Determine all possible types a variable could be
+	vector<string> types{ "void", "char", "short", "int", "long", "long long", "float", "double",
+							"char*", "short*", "int*", "long*", "long long*", "float*", "double*" };
+
+	for (int i = 0; i < lines.size(); i++)
+	{
+		identifier row;
+		for (int j = 0; j < lines[i].size(); j++)
+		{
+			// Increse references if token match identifier name
+			for (int g = 0; g < identifiers.size(); g++) {
+				if (lines[i][j] == identifiers[g].identifierName) {
+					identifiers[g].timesReferenced++;
+				}
+			}
+
+			// Recognise struct
+			if (j < lines[i].size() - 1 && lines[i][j] == "struct") {
+				types.push_back(lines[i][j + 1]);
+			}
+			// Recognise functions or variables
+			for (string type : types) {
+				if (j < lines[i].size() - 2 && lines[i][j] == type) {
+					if (lines[i][j + 2] == "(") {
+						row.whatIs = "function";
+						row.identifierName = lines[i][j + 1];
+					}
+					else
+						row.whatIs = "variable";
+					row.identifierType = type;
+				}
+			}
+			// Recognizing if a variable is an array or not
+			if (row.whatIs == "variable") {
+				for (int g = 0; g < lines[i][j].size(); g++) {
+					if (lines[i][j][g] == '[') {
+						arrayFound = 1;
+					}
+					else if (arrayFound == 1 && lines[i][j][g] == ']') {
+						arrayFound = 2;
+					}
+				}
+				if (arrayFound == 2) {
+					row.whatIs = "array";
+					arrayFound = 0;
+					size_t pos = lines[i][j].find("[");      // position of "[" in token
+					string varName = lines[i][j].substr(0, pos);     // get from 0 to "[" the end
+					row.identifierName = varName;
+				}
+				else if (lines[i].size() >= 3) {
+						row.identifierName = lines[i][1];					
+				}
+			}
+		}
+		row.lineNumber = i + 1; // Track line number of identifier declaration
+
+
+		// Delete empty lines (to add at the check below)
+	/*
+		if (identifiers[i].identifierName == "" &&
+			identifiers[i].identifierType == "" &&
+			identifiers[i].whatIs == "" &&
+			identifiers[i].lineNumber == 0 &&
+			identifiers[i].timesReferenced == 0) {
+			auto ciao = identifiers.begin() + i;
+			identifiers.erase(identifiers.begin() + i);
+		}
+	}*/
+		// If identifier values are empty, don't add it to its vector
+		if (row.whatIs != "")
+			identifiers.push_back(row);				
+	}	
+
+	// Writing on output file
+	ofstream outputFile("identifiers.txt");
+
+	for (int i = 0; i < identifiers.size(); i++) {
+		outputFile << identifiers[i].identifierName << ", " <<
+			"line " << identifiers[i].lineNumber << ", " <<
+			identifiers[i].whatIs << ", " <<
+			identifiers[i].identifierType << ", " <<
+			"referenced " << identifiers[i].timesReferenced << "\n";
+	}
+	outputFile.close();
+}
+
 int main(int argc, char** argv)
 {
 	bool alreadyLong = false;
@@ -65,15 +170,17 @@ int main(int argc, char** argv)
 	if (argc == 2)
 	{
 		// Check if the input file is a C file
-		if (((string)argv[1]).find(".c") != std::string::npos)
+		if (((string)argv[1]).find(".c") != string::npos)
 		{
-			std::vector<string> tokens;
+			vector<string> tokens;
+			vector<vector<string>> lines;
 			ifstream file("test_files/test4.c");
 			string line;
 			string token;
 			while (getline(file, line))
 			{
 				stringstream stream(line);
+				tokens.clear();
 				while (stream >> token)
 				{
 					// Fix long long problem (it is split by space)
@@ -94,16 +201,17 @@ int main(int argc, char** argv)
 						}
 						else {
 							tokens.push_back(token);
-						}						
+						}
 					}
 
 				}
-				tokens.push_back("\n");
+				lines.push_back(tokens);
+				//tokens.push_back("\n");
 			}
-
 			file.close();
 			// Call the functions needed by the program 
-			infoToConsole(tokens);
+			infoToConsole(lines);
+			writeOutputFile(lines);
 		}
 		else {
 			cout << "Error: input file is not a C file" << endl;
