@@ -5,10 +5,11 @@ C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_
 C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(46,11): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(56,10): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(84,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(87,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(90,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(97,10): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(102,11): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(114,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(156,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(88,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(91,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(104,10): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(121,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(161,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(193,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(216,20): warning C4018: '<': signed/unsigned mismatch
   Coursework2.vcxproj -> C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Debug\Coursework2.exe
