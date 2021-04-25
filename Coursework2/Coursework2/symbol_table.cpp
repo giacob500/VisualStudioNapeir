@@ -76,6 +76,10 @@ void writeOutputFile(vector<vector<string>> lines)
 {
 	int line = 0;
 	int arrayFound = 0;
+	bool mainStarted = false;
+	bool insideMainFunction = false;
+	string currentFunction = "";
+	vector<string> scope;
 	vector<identifier> identifiers;
 	// Determine all possible types a variable could be
 	vector<string> types{ "void", "char", "short", "int", "long", "long long", "float", "double",
@@ -93,10 +97,10 @@ void writeOutputFile(vector<vector<string>> lines)
 				if (lines[i][j] == identifiers[g].identifierName) {
 					identifiers[g].timesReferenced++;
 				}
-				// If a variable is a function parameter first clean it, then compare it
-				else if (bracketPosition != string::npos && lines[i][j] == identifiers[g].identifierName.substr(0, bracketPosition - 1)) {
-					//int where = identifiers[g].identifierName.size() - pos;
-					//string diocan = identifiers[g].identifierName.substr(0, pos-1);					
+				// If a variable is a function parameter or is declared inside a non-main function first compare variable names, then function names
+				else if (bracketPosition != string::npos &&
+					lines[i][j] == identifiers[g].identifierName.substr(0, bracketPosition - 1) &&
+					identifiers[g].identifierName.substr(bracketPosition + 1) == currentFunction + ")") {
 					identifiers[g].timesReferenced++;
 				}
 			}
@@ -109,7 +113,10 @@ void writeOutputFile(vector<vector<string>> lines)
 				if (lines[i].size() >= 3 && lines[i][0] == type) {
 					if (lines[i][2] == "(") {
 						row.whatIs = "function";
-						row.identifierName = lines[i][1];
+						currentFunction = row.identifierName = lines[i][1];
+						if (row.identifierName == "main") {
+							insideMainFunction = true;
+						}
 					}
 					else
 						row.whatIs = "variable";
@@ -118,19 +125,20 @@ void writeOutputFile(vector<vector<string>> lines)
 			}
 			// Recognizing if a variable is an array or not
 			if (row.whatIs == "variable") {
-				for (int g = 0; g < lines[i][j].size(); g++) {
-					if (lines[i][j][g] == '[') {
-						arrayFound = 1;
-					}
-					else if (arrayFound == 1 && lines[i][j][g] == ']') {
-						arrayFound = 2;
-					}
-				}
-				
-				// PROBLEM WITH CHAR [] -----------------
 				if (lines[i][2][0] == '[' && lines[i][2][lines[i][2].size() - 1] == ']') {
 					arrayFound = 2;
 				}
+				else {
+					for (int g = 0; g < lines[i][j].size(); g++) {
+						if (lines[i][j][g] == '[') {
+							arrayFound = 1;
+						}
+						else if (arrayFound == 1 && lines[i][j][g] == ']') {
+							arrayFound = 2;
+						}
+					}
+				}
+
 				if (arrayFound == 2) {
 					row.whatIs = "array";
 					row.identifierType += " []";
@@ -147,10 +155,24 @@ void writeOutputFile(vector<vector<string>> lines)
 				else if (lines[i].size() >= 3) {
 					row.identifierName = lines[i][1];
 				}
-				cout << row.identifierType << "\n";
+				if(insideMainFunction == false)
+					row.identifierName += " (" + currentFunction + ")";
 			}
+			// Check if inside main starts here ---
+			if (insideMainFunction == true) {
+				mainStarted = true;
+				if (lines[i][j] == "{") {
+					scope.push_back("{");					
+				}
+				if (scope.size() > 0 && lines[i][j] == "}")
+					scope.pop_back();
+			}	
 		}
-		
+		if (mainStarted == true && scope.size() == 0)
+			insideMainFunction == false;
+		// Ends here ---
+
+
 		// Recognise for, where, if
 		if (lines[i].size() >= 14 &&
 			lines[i][0] == "for" &&
@@ -164,9 +186,6 @@ void writeOutputFile(vector<vector<string>> lines)
 				}
 			}
 		}
-
-		
-
 		// Delete empty lines (to add at the check below)
 	/*
 		if (identifiers[i].identifierName == "" &&
@@ -185,7 +204,6 @@ void writeOutputFile(vector<vector<string>> lines)
 		if (row.whatIs == "function") {
 			if (lines[i][lines[i].size() - 2] != "(" && lines[i][lines[i].size() - 1] == ")") {
 				// Found! This is a function with parameters
-				//cout << row.identifierName << endl;
 				identifier row1;
 				row1.whatIs = "variable";
 				row1.lineNumber = i + 1;
