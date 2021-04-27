@@ -1,16 +1,25 @@
 ﻿  symbol_table.cpp
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(37,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(38,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(41,10): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(46,11): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(56,10): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(88,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(92,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(95,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(116,10): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(140,24): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(180,23): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(191,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(219,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(242,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(38,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(39,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(42,10): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(47,11): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(57,10): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(89,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(93,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(96,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(109,10): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(133,24): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(173,23): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(184,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(212,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(235,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(266,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(272,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(275,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(288,10): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(312,24): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(352,23): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(363,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(391,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Coursework2\symbol_table.cpp(414,20): warning C4018: '<': signed/unsigned mismatch
   Coursework2.vcxproj -> C:\Users\Giacomo\source\repos\VisualStudioNapeir\Coursework2\Debug\Coursework2.exe

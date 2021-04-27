@@ -9,50 +9,50 @@ struct node
 	node* right;
 };
 
-void insert(node** tree, int value)
+void insert(node** root, int value)
 {
-	if (*tree == nullptr)
+	if (*root == nullptr)
 	{
-		*tree = new node;
-		(*tree)->data = value;
-		(*tree)->left = nullptr;
-		(*tree)->right = nullptr;
+		*root = new node;
+		(*root)->data = value;
+		(*root)->left = nullptr;
+		(*root)->right = nullptr;
 	}
 	else {
-		if (value < (*tree)->data) {
-			insert(&(*tree)->left, value);
+		if (value < (*root)->data) {
+			insert(&(*root)->left, value);
 		}
-		else if (value > (*tree)->data) {
-			insert(&(*tree)->right, value);
+		else if (value > (*root)->data) {
+			insert(&(*root)->right, value);
 		}
 		else
 			return;
 	}
 }
 
-void delete_tree(node* tree) {
-	if (tree == nullptr) {
+void delete_tree(node* root) {
+	if (root == nullptr) {
 		return;
 	}
-	delete_tree(tree->left);
-	delete_tree(tree->right);
+	delete_tree(root->left);
+	delete_tree(root->right);
 }
 
-void inorder(node* tree)
+void inorder(node* root)
 {
-	if (tree == nullptr)
+	if (root == nullptr)
 	{
 		return;
 	}else{
-		inorder(tree->left);
-		cout << "value: " << tree->data << endl;
-		inorder(tree->right);
+		inorder(root->left);
+		cout << "value: " << root->data << endl;
+		inorder(root->right);
 	}
 }
 
 int main(int argc, char** argv)
 {
-	node* tree = nullptr;
+	node* root = nullptr;
 	while (true)
 	{
 		int num;
@@ -62,10 +62,10 @@ int main(int argc, char** argv)
 		if (num == -1) {
 			break;
 		}
-		insert(&tree, num);
+		insert(&root, num);
 	}
-	inorder(tree);
+	inorder(root);
 	cout << endl;
-	delete_tree(tree);
+	delete_tree(root);
 	return 0;
 }

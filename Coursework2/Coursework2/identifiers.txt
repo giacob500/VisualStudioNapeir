@@ -1,9 +1,9 @@
-string_length, line 1, function, int, referenced 2
-str (string_length), line 1, variable, char*, referenced 1
-len (string_length), line 3, variable, int, referenced 3
-chomp, line 11, function, void, referenced 1
-str (chomp), line 11, variable, char*, referenced 3
-len (chomp), line 13, variable, int, referenced 3
-main, line 20, function, int, referenced 0
-name, line 22, array, char [], referenced 2
-len, line 23, variable, int, referenced 1
+string_length, line diocane1, function, int, referenced porcoddio2
+str (string_length), line diocane1, variable, char*, referenced porcoddio1
+len (string_length), line diocane3, variable, int, referenced porcoddio3
+chomp, line diocane11, function, void, referenced porcoddio1
+str (chomp), line diocane11, variable, char*, referenced porcoddio3
+len (chomp), line diocane13, variable, int, referenced porcoddio3
+main, line diocane20, function, int, referenced porcoddio0
+name, line diocane22, array, char [], referenced porcoddio2
+len, line diocane23, variable, int, referenced porcoddio1

@@ -141,6 +141,11 @@
   <ItemGroup>
     <ClCompile Include="symbol_table.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BinaryTree.h" />
+    <ClInclude Include="struct.h" />
+    <ClInclude Include="symbol_table.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
