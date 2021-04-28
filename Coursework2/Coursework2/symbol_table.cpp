@@ -14,7 +14,7 @@ using namespace std;
 	int lineNumber = 1;
 	string identifierType;
 	int identifierReferenced = 0;
-*/
+	------
 struct identifier {
 	string identifierName;
 	int lineNumber = 0;
@@ -22,7 +22,7 @@ struct identifier {
 	string identifierType;
 	int timesReferenced = 0;
 };
-
+*/
 
 void infoToConsole(vector<vector<string>> lines)
 {
@@ -257,10 +257,10 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 
 	//BinaryTree word_tree;
 	BinaryTree mytree;
-	word_info new_word;
-	new_word.word = "hello";
-	new_word.count = 1;
-	mytree.insert(new_word);
+	identifier identifierEx;
+	identifierEx.identifierName = "hello";
+	identifierEx.lineNumber = 1;
+	mytree.insert(identifierEx);
 	cout << mytree.print_tree();
 
 	// Determine all possible types a variable could be

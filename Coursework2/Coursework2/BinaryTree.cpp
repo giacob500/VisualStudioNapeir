@@ -19,9 +19,9 @@ BinaryTree::~BinaryTree()
 }
 
 //Inserts a new word
-void BinaryTree::insert(word_info& new_word)
+void BinaryTree::insert(identifier& new_identifier)
 {
-	insert_helper(&root, new_word);
+	insert_helper(&root, new_identifier);
 }
 
 //Returns a string representation of the tree in alphabetical order (in order)
@@ -31,27 +31,27 @@ string BinaryTree::print_tree()
 }
 
 //Private insert helper
-//Parameters: root -- the root node of the tree; new_word, a struct with word info to insert
-void BinaryTree::insert_helper(node** root, word_info& new_word)
+//Parameters: root -- the root node of the tree; new_identifier, a struct with word info to insert
+void BinaryTree::insert_helper(node** root, identifier& new_identifier)
 {
 	if (*root == nullptr)
 	{
 		*root = new node();
 		(*root)->left = nullptr;
 		(*root)->right = nullptr;
-		(*root)->data = new_word;
+		(*root)->data = new_identifier;
 	}
 	else
 	{
-		if (new_word.word < (*root)->data.word)
+		if (new_identifier.identifierName < (*root)->data.identifierName)
 		{
 			//The new word comes before root alphabetically, so go left.
-			insert_helper(&((*root)->left), new_word);
+			insert_helper(&((*root)->left), new_identifier);
 		}
 		else
 		{
 			//The new word comes after root alphabetically, so go right.
-			insert_helper(&((*root)->right), new_word);
+			insert_helper(&((*root)->right), new_identifier);
 		}
 	}
 }
@@ -64,7 +64,7 @@ string BinaryTree::print_tree_helper(node* root)
 		return print_tree_helper(root->left);
 	else {
 		if (root != nullptr) {
-			return root->data.word;
+			return root->data.identifierName;
 		}
 		else
 			//if (root->right != nullptr)

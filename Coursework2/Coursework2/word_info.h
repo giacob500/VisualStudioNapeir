@@ -5,8 +5,11 @@
 
 #include <string>
 
-struct word_info
+struct identifier
 {
-    std::string word; //The word;
-    int count; //The number times the word occurs in the file
+    std::string identifierName;
+    int lineNumber;
+    std::string whatIs;
+    std::string identifierType;
+    int timesReferenced;
 };
