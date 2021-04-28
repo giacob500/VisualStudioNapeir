@@ -1,22 +1,22 @@
 //Author: Giacomo Lorenzi
 //A binary search tree class
-/*
+
 #pragma once
 
+#include<string>
 #include "word_info.h"
-using namespace std;
 
 //One node of the BST (Binary Search Tree)
 struct node
 {
-    string identifierName;
-    int lineNumber = 0;
-    string whatIs;
-    string identifierType;
-    int timesReferenced = 0;
-    int data;
+    std::string identifierName;
+    int lineNumber;
+    std::string whatIs;
+    std::string identifierType;
+    int timesReferenced;
     node* left; //Pointer to the left child
     node* right; //Pointer to the right child
+    word_info data;
 };
 
 class BinaryTree
@@ -29,8 +29,7 @@ public:
 
 private:
     node* root; //The root node of the tree
-
     void insert_helper(node** root, word_info& new_word); //private insert helper
+    void delete_tree(node* root); //private insert helper
     std::string print_tree_helper(node* root); //private print tree helper
 };
-*/

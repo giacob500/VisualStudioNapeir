@@ -3,7 +3,8 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include "BinaryTree.cpp"
+#include "BinaryTree.h"
+#include "word_info.h"
 
 using namespace std;
 
@@ -21,6 +22,7 @@ struct identifier {
 	string identifierType;
 	int timesReferenced = 0;
 };
+
 
 void infoToConsole(vector<vector<string>> lines)
 {
@@ -89,6 +91,7 @@ void writeOutputFile(vector<vector<string>> lines)
 	for (int i = 0; i < lines.size(); i++)
 	{
 		identifier row;
+
 		row.lineNumber = i + 1; // Track line number of identifier declaration
 		for (int j = 0; j < lines[i].size(); j++)
 		{
@@ -170,7 +173,7 @@ void writeOutputFile(vector<vector<string>> lines)
 			}
 		}
 		if (mainStarted == true && scope.size() == 0)
-			insideMainFunction == false;
+			insideMainFunction = false;
 		// Ends here ---
 
 
@@ -251,10 +254,14 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 	string currentFunction = "";
 	vector<string> scope;
 	vector<identifier> identifiers;
+
+	//BinaryTree word_tree;
 	BinaryTree mytree;
-	node* leaf = nullptr;
-	mytree.populate(&leaf, 15);
-	mytree.inorder(leaf);
+	word_info new_word;
+	new_word.word = "hello";
+	new_word.count = 1;
+	mytree.insert(new_word);
+	cout << mytree.print_tree();
 
 	// Determine all possible types a variable could be
 	vector<string> types{ "void", "char", "short", "int", "long", "long long", "float", "double",
@@ -346,7 +353,7 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 			}
 		}
 		if (mainStarted == true && scope.size() == 0)
-			insideMainFunction == false;
+			insideMainFunction = false;
 		// Ends here ---
 
 
@@ -410,12 +417,11 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 
 	for (int i = 0; i < identifiers.size(); i++) {
 		outputFile << identifiers[i].identifierName << ", " <<
-			"line diocane" << identifiers[i].lineNumber << ", " <<
+			"line " << identifiers[i].lineNumber << ", " <<
 			identifiers[i].whatIs << ", " <<
 			identifiers[i].identifierType << ", " <<
-			"referenced porcoddio" << identifiers[i].timesReferenced << "\n";
+			"referenced " << identifiers[i].timesReferenced << "\n";
 	}
-
 	outputFile.close();
 }
 
