@@ -255,9 +255,6 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 	node* leaf = nullptr;
 	mytree.populate(&leaf, 15);
 	mytree.inorder(leaf);
-	//mytree.insert(&tree, 15);
-	//mytree->insert(&mytree, 15);
-	//mytree->inorder();
 
 	// Determine all possible types a variable could be
 	vector<string> types{ "void", "char", "short", "int", "long", "long long", "float", "double",

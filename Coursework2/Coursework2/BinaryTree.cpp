@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 struct node {
 	string identifierName;
 	int lineNumber = 0;
@@ -74,25 +73,5 @@ public:
 			cout << "value: " << root->data << endl;
 			inorder(root->right);
 		}
-	}
-
-	int main(int argc, char** argv)
-	{
-		node* root = nullptr;
-		while (true)
-		{
-			int num;
-			cout << "Enter number ( -1 to exit ): ";
-			cin >> num;
-
-			if (num == -1) {
-				break;
-			}
-			insert(&root, num);
-		}
-		inorder(root);
-		cout << endl;
-		delete_tree(root);
-		return 0;
 	}
 };

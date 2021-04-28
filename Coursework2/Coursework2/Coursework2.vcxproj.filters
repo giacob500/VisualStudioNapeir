@@ -29,5 +29,8 @@
     <ClInclude Include="symbol_table.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="word_info.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
