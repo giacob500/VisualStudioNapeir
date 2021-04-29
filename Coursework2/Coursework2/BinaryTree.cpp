@@ -25,9 +25,9 @@ void BinaryTree::insert(identifier& new_identifier)
 }
 
 //Returns a string representation of the tree in alphabetical order (in order)
-string BinaryTree::print_tree()
+void BinaryTree::print_tree()
 {
-	return print_tree_helper(root);
+	print_tree_helper(root);
 }
 
 //Private insert helper
@@ -40,35 +40,71 @@ void BinaryTree::insert_helper(node** root, identifier& new_identifier)
 		(*root)->left = nullptr;
 		(*root)->right = nullptr;
 		(*root)->data = new_identifier;
+		cout << "Node inserted" << endl;
 	}
 	else
 	{
-		if (new_identifier.identifierName < (*root)->data.identifierName)
+		if (new_identifier.identifierName == (*root)->data.identifierName) {
+			// The word matches, so update identifier reference counter
+			(*root)->data.timesReferenced++;
+		}
+		else if (new_identifier.identifierName < (*root)->data.identifierName)
 		{
 			//The new word comes before root alphabetically, so go left.
-			insert_helper(&((*root)->left), new_identifier);
+			cout << "Moved to left" << endl;
+			insert_helper(&((*root)->left), new_identifier);			
 		}
 		else
 		{
 			//The new word comes after root alphabetically, so go right.
-			insert_helper(&((*root)->right), new_identifier);
+			cout << "Moved to right" << endl;
+			insert_helper(&((*root)->right), new_identifier);			
 		}
 	}
 }
 
 //Private print_tree helper
 //Returns a string representation of the tree in alphabetical order
-string BinaryTree::print_tree_helper(node* root)
+void BinaryTree::print_tree_helper(node* root)
 {
-	if (root->left != nullptr)
-		return print_tree_helper(root->left);
+	/*
+	if (root != nullptr) {
+		string informations = "";
+		informations += root->data.identifierName + ", ";
+		informations += to_string(root->data.lineNumber) + ", ";
+		informations += root->data.whatIs + ", ";
+		informations += root->data.identifierType + ", ";		
+		informations += to_string(root->data.timesReferenced) + "\n";		
+		return informations;
+	}
+		
+	if (root != nullptr)
+	{
+		print_tree_helper(root->left, informations);
+		informations += root->data.identifierName + ", ";
+		informations += to_string(root->data.lineNumber) + ", ";
+		informations += root->data.whatIs + ", ";
+		informations += root->data.identifierType + ", ";
+		informations += to_string(root->data.timesReferenced) + "\n";
+		print_tree_helper(root->right, informations);
+	}
+	else
+	{
+		return informations;
+	}
+	*/
+	if (root == nullptr)
+	{
+		return;
+	}
 	else {
-		if (root != nullptr) {
-			return root->data.identifierName;
-		}
-		else
-			//if (root->right != nullptr)
-			return print_tree_helper(root->right);
+		print_tree_helper(root->left);
+		cout << root->data.identifierName << ", "
+			<< to_string(root->data.lineNumber) << ", "
+			<< root->data.whatIs << ", "
+			<< root->data.identifierType << ", "
+			<< to_string(root->data.timesReferenced) << endl;
+		print_tree_helper(root->right);
 	}
 }
 
