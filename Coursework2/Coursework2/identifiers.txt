@@ -1,8 +1,8 @@
 string_length, line 1, function, int, referenced 17
-str (string_length), line 1, variable, char*, referenced 15497841
+str (string_length), line 1, variable, char*, referenced 7502657
 len (string_length), line 3, variable, int, referenced 18
 chomp, line 11, function, void, referenced 16
-str (chomp), line 11, variable, char*, referenced 15497843
+str (chomp), line 11, variable, char*, referenced 7502659
 len (chomp), line 13, variable, int, referenced 18
 main, line 20, function, int, referenced 15
 name, line 22, array, char [], referenced 17

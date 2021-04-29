@@ -19,9 +19,9 @@ BinaryTree::~BinaryTree()
 }
 
 //Inserts a new word
-void BinaryTree::insert(identifier& new_identifier)
+void BinaryTree::insert(identifier& new_identifier, string currentFunction)
 {
-	insert_helper(&root, new_identifier);
+	insert_helper(&root, new_identifier, currentFunction);
 }
 
 //Returns a string representation of the tree in alphabetical order (in order)
@@ -32,7 +32,7 @@ void BinaryTree::print_tree()
 
 //Private insert helper
 //Parameters: root -- the root node of the tree; new_identifier, a struct with word info to insert
-void BinaryTree::insert_helper(node** root, identifier& new_identifier)
+void BinaryTree::insert_helper(node** root, identifier& new_identifier, string currentFunction)
 {
 	if (*root == nullptr)
 	{
@@ -40,25 +40,21 @@ void BinaryTree::insert_helper(node** root, identifier& new_identifier)
 		(*root)->left = nullptr;
 		(*root)->right = nullptr;
 		(*root)->data = new_identifier;
-		cout << "Node inserted" << endl;
+		//cout << "Node inserted" << endl;
 	}
 	else
 	{
-		if (new_identifier.identifierName == (*root)->data.identifierName) {
-			// The word matches, so update identifier reference counter
-			(*root)->data.timesReferenced++;
-		}
-		else if (new_identifier.identifierName < (*root)->data.identifierName)
+		if (new_identifier.identifierName < (*root)->data.identifierName)
 		{
 			//The new word comes before root alphabetically, so go left.
-			cout << "Moved to left" << endl;
-			insert_helper(&((*root)->left), new_identifier);			
+			//cout << "Moved to left" << endl;
+			insert_helper(&((*root)->left), new_identifier, currentFunction);
 		}
 		else
 		{
 			//The new word comes after root alphabetically, so go right.
-			cout << "Moved to right" << endl;
-			insert_helper(&((*root)->right), new_identifier);			
+			//cout << "Moved to right" << endl;
+			insert_helper(&((*root)->right), new_identifier, currentFunction);
 		}
 	}
 }

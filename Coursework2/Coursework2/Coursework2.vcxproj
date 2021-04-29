@@ -139,13 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="symbol_table.cpp" />
+    <ClCompile Include="symbol_table_partB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryTree.h" />
+    <ClInclude Include="infotoconsole.h" />
     <ClInclude Include="struct.h" />
-    <ClInclude Include="symbol_table.h" />
-    <ClInclude Include="word_info.h" />
+    <ClInclude Include="identifier.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
