@@ -24,6 +24,12 @@ void BinaryTree::insert(identifier& new_identifier, string currentFunction)
 	insert_helper(&root, new_identifier, currentFunction);
 }
 
+//Updates tree
+void BinaryTree::update(std::string word, std::string currentFunction)
+{
+	update_helper(&root, word, currentFunction);
+}
+
 //Returns a string representation of the tree in alphabetical order (in order)
 void BinaryTree::print_tree()
 {
@@ -40,21 +46,24 @@ void BinaryTree::insert_helper(node** root, identifier& new_identifier, string c
 		(*root)->left = nullptr;
 		(*root)->right = nullptr;
 		(*root)->data = new_identifier;
-		cout << "Node inserted" << endl;
+		//cout << "Node inserted" << endl;
 	}
 	else
-	{
-		size_t bracketPosition = new_identifier.identifierName.find("(");
-		cout << currentFunction << " - " << new_identifier.identifierName << " - " << (*root)->data.identifierName << endl;
-		if ((*root)->data.identifierName == new_identifier.identifierName) {
+	{/*
+		size_t bracketPosition = (*root)->data.identifierName.find("(");
+		//cout << currentFunction << " - " << new_identifier.identifierName << " - " << (*root)->data.identifierName << endl;
+		if (new_identifier.identifierName == (*root)->data.identifierName) {
 			(*root)->data.timesReferenced++;
 		}
 		else if (bracketPosition != string::npos &&
-			(*root)->data.identifierName == new_identifier.identifierName.substr(0, bracketPosition - 1) &&
-			new_identifier.identifierName.substr(bracketPosition + 1) == currentFunction + ")") {
+			new_identifier.identifierName == (*root)->data.identifierName.substr(0, bracketPosition - 1) &&
+			(*root)->data.identifierName.substr(bracketPosition + 1) == currentFunction + ")") {
 			(*root)->data.timesReferenced++;
 		}
-		else if (new_identifier.identifierName < (*root)->data.identifierName)
+		if (new_identifier.identifierName == (*root)->data.identifierName) {
+			(*root)->data.timesReferenced++;
+		}
+		else */if (new_identifier.identifierName < (*root)->data.identifierName)
 		{
 			//The new word comes before root alphabetically, so go left.
 			//cout << "Moved to left" << endl;
@@ -65,6 +74,42 @@ void BinaryTree::insert_helper(node** root, identifier& new_identifier, string c
 			//The new word comes after root alphabetically, so go right.
 			//cout << "Moved to right" << endl;
 			insert_helper(&((*root)->right), new_identifier, currentFunction);
+		}
+	}
+}
+
+void BinaryTree::update_helper(node** root, std::string word, std::string currentFunction)
+{
+	if (*root == nullptr)
+	{
+		return;
+	}
+	else
+	{
+		size_t bracketPosition = (*root)->data.identifierName.find("(");
+		//cout << currentFunction << " - " << new_identifier.identifierName << " - " << (*root)->data.identifierName << endl;
+		if (word == (*root)->data.identifierName) {
+			(*root)->data.timesReferenced++;
+		}
+		else if (bracketPosition != string::npos &&
+			word == (*root)->data.identifierName.substr(0, bracketPosition - 1) &&
+			(*root)->data.identifierName.substr(bracketPosition + 1) == currentFunction + ")") {
+			(*root)->data.timesReferenced++;
+		}/*
+		if (new_identifier.identifierName == (*root)->data.identifierName) {
+			(*root)->data.timesReferenced++;
+		}
+		else */if (word < (*root)->data.identifierName)
+		{
+			//The new word comes before root alphabetically, so go left.
+			//cout << "Moved to left" << endl;
+			update_helper(&((*root)->left), word, currentFunction);
+		}
+		else
+		{
+			//The new word comes after root alphabetically, so go right.
+			//cout << "Moved to right" << endl;
+			update_helper(&((*root)->right), word, currentFunction);
 		}
 	}
 }

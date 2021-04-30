@@ -27,23 +27,31 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 		identifier row;
 		row.timesReferenced = 0;
 		row.lineNumber = i + 1; // Track line number of identifier declaration
+
 		for (int j = 0; j < lines[i].size(); j++)
 		{
 			// Increse references if token matches identifier name
 			// USE THIS IN BINARY TREE CLASS
 			/*
+			if (row.identifierName != "") {
+				mytree.insert(row, currentFunction);
+			}
+			
 			for (int g = 0; g < identifiers.size(); g++) {
 				size_t bracketPosition = identifiers[g].identifierName.find("(");
 				if (lines[i][j] == identifiers[g].identifierName) {
 					identifiers[g].timesReferenced++;
+					mytree.insert(identifiers[g], currentFunction);
 				}
 				// If a variable is a function parameter or is declared inside a non-main function first compare variable names, then function names
 				else if (bracketPosition != string::npos &&
 					lines[i][j] == identifiers[g].identifierName.substr(0, bracketPosition - 1) &&
 					identifiers[g].identifierName.substr(bracketPosition + 1) == currentFunction + ")") {
 					identifiers[g].timesReferenced++;
+					mytree.insert(identifiers[g], currentFunction);
 				}
-			}	*/			
+			}	*/
+			mytree.update(lines[i][j], currentFunction);
 			// Recognise struct
 			if (j < lines[i].size() - 1 && lines[i][j] == "struct") {
 				types.push_back(lines[i][j + 1]);
@@ -112,7 +120,6 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 		//	insideMainFunction == false;
 		// Ends here ---
 
-
 		// Recognise for, where, if
 		if (lines[i].size() >= 14 &&
 			lines[i][0] == "for" &&
@@ -171,7 +178,7 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 				}
 				// identifiers.push_back(row1); was here
 			}
-		}		
+		}
 	}
 
 	cout<<"\n"<<endl;
