@@ -1,6 +1,6 @@
 buildandexeA:
-	cl /c /EHsc symbol_table_partA.cpp infotoconsole.cpp
-	link symbol_table_partA.obj infotoconsole.obj
+	cl /c /EHsc symbol_table_partA.cpp infotoconsole.cpp typevectors.cpp
+	link symbol_table_partA.obj infotoconsole.obj typevectors.obj
 	symbol_table_partA test4.c
 	
 buildoldA:
@@ -12,9 +12,9 @@ exeA:
 	symbol_table_partA test4.c
 
 buildandexeB:
-	cl /c /EHsc symbol_table_partB.cpp infotoconsole.cpp BinaryTree.cpp
+	cl /c /EHsc symbol_table_partB.cpp infotoconsole.cpp typevectors.cpp BinaryTree.cpp
 	lib BinaryTree.obj
-	link symbol_table_partB.obj infotoconsole.obj BinaryTree.lib
+	link symbol_table_partB.obj infotoconsole.obj typevectors.obj BinaryTree.lib
 	symbol_table_partB test4.c
 	
 exeB:

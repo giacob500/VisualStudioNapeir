@@ -3,26 +3,11 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include "infotoconsole.h"
 #include "identifier.h"
-
+#include "infotoconsole.h"
+#include "symbol_table_partA.h"
 using namespace std;
 
-/*
-// Needed variables - SECOND PART
-	string identifierName;
-	int lineNumber = 1;
-	string identifierType;
-	int identifierReferenced = 0;
-
-struct identifier {
-	string identifierName;
-	int lineNumber = 0;
-	string whatIs;
-	string identifierType;
-	int timesReferenced = 0;
-};
-*/
 void writeOutputFile(vector<vector<string>> lines)
 {
 	int line = 0;

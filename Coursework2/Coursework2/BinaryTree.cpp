@@ -118,32 +118,6 @@ void BinaryTree::update_helper(node** root, std::string word, std::string curren
 //Returns a string representation of the tree in alphabetical order
 void BinaryTree::print_tree_helper(node* root)
 {
-	/*
-	if (root != nullptr) {
-		string informations = "";
-		informations += root->data.identifierName + ", ";
-		informations += to_string(root->data.lineNumber) + ", ";
-		informations += root->data.whatIs + ", ";
-		informations += root->data.identifierType + ", ";		
-		informations += to_string(root->data.timesReferenced) + "\n";		
-		return informations;
-	}
-		
-	if (root != nullptr)
-	{
-		print_tree_helper(root->left, informations);
-		informations += root->data.identifierName + ", ";
-		informations += to_string(root->data.lineNumber) + ", ";
-		informations += root->data.whatIs + ", ";
-		informations += root->data.identifierType + ", ";
-		informations += to_string(root->data.timesReferenced) + "\n";
-		print_tree_helper(root->right, informations);
-	}
-	else
-	{
-		return informations;
-	}
-	*/
 	if (root == nullptr)
 	{
 		return;
@@ -151,7 +125,7 @@ void BinaryTree::print_tree_helper(node* root)
 	else {
 		print_tree_helper(root->left);
 		cout << root->data.identifierName << ", "
-			<< to_string(root->data.lineNumber) << ", "
+			<< "line " << to_string(root->data.lineNumber) << ", "
 			<< root->data.whatIs << ", "
 			<< root->data.identifierType << ", "
 			<< "referenced " << to_string(root->data.timesReferenced) << endl;

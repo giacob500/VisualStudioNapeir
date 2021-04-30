@@ -2,13 +2,15 @@
 #include <string>
 #include <vector>
 #include "infotoconsole.h"
+#include "typesvector.h"
 using namespace std;
 
 void infoToConsole(vector<vector<string>> lines)
 {
 	// Determine all possible types a variable could be
-	vector<string> types{ "void", "char", "short", "int", "long", "long long", "float", "double",
-							"char*", "short*", "int*", "long*", "long long*", "float*", "double*" };
+	vector<string> types = infoToConsole();
+	//vector<string> types{ "void", "char", "short", "int", "long", "long long", "float", "double",
+	//						"char*", "short*", "int*", "long*", "long long*", "float*", "double*" };
 
 	// Counters - FIRST PART
 	int variables = 0;

@@ -3,9 +3,10 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include "infotoconsole.h"
-#include "BinaryTree.h"
 #include "identifier.h"
+#include "BinaryTree.h"
+#include "infotoconsole.h"
+#include "symbol_table_partB.h"
 using namespace std;
 
 void writeOutputFileUsingBST(vector<vector<string>> lines)
@@ -16,7 +17,6 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 	bool insideMainFunction = false;
 	string currentFunction = "";
 	vector<string> scope;
-	vector<identifier> identifiers;
 	BinaryTree mytree;
 	// Determine all possible types a variable could be
 	vector<string> types{ "void", "char", "short", "int", "long", "long long", "float", "double",
@@ -30,27 +30,6 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 
 		for (int j = 0; j < lines[i].size(); j++)
 		{
-			// Increse references if token matches identifier name
-			// USE THIS IN BINARY TREE CLASS
-			/*
-			if (row.identifierName != "") {
-				mytree.insert(row, currentFunction);
-			}
-			
-			for (int g = 0; g < identifiers.size(); g++) {
-				size_t bracketPosition = identifiers[g].identifierName.find("(");
-				if (lines[i][j] == identifiers[g].identifierName) {
-					identifiers[g].timesReferenced++;
-					mytree.insert(identifiers[g], currentFunction);
-				}
-				// If a variable is a function parameter or is declared inside a non-main function first compare variable names, then function names
-				else if (bracketPosition != string::npos &&
-					lines[i][j] == identifiers[g].identifierName.substr(0, bracketPosition - 1) &&
-					identifiers[g].identifierName.substr(bracketPosition + 1) == currentFunction + ")") {
-					identifiers[g].timesReferenced++;
-					mytree.insert(identifiers[g], currentFunction);
-				}
-			}	*/
 			mytree.update(lines[i][j], currentFunction);
 			// Recognise struct
 			if (j < lines[i].size() - 1 && lines[i][j] == "struct") {
@@ -144,10 +123,8 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 			identifiers.erase(identifiers.begin() + i);
 		}
 	}*/
-	// If identifier values are empty, don't add it to its vector
-		if (row.whatIs != "") {
-			identifiers.push_back(row);
-			//cout << currentFunction << endl;
+	// If identifier is empty, don't add it to its vector
+		if (row.identifierName != "") {
 			mytree.insert(row, currentFunction);
 		}
 
@@ -170,18 +147,16 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 						}
 						if (row1.identifierType != lines[i][j]) {
 							row1.timesReferenced = 0;
-							identifiers.push_back(row1);
 							//cout << currentFunction << endl;
 							mytree.insert(row1, currentFunction);
 						}
 					}
 				}
-				// identifiers.push_back(row1); was here
 			}
 		}
 	}
 
-	cout<<"\n"<<endl;
+	cout<<"\nBinary tree in alphabetical order:"<<endl;
 	mytree.print_tree();
 }
 
