@@ -1,9 +1,13 @@
 buildandexeA:
-	cl /c /EHsc symbol_table_partA.cpp infotoconsole.cpp BinaryTree.cpp
-	lib BinaryTree.obj
-	link symbol_table_partA.obj infotoconsole.obj BinaryTree.lib
+	cl /c /EHsc symbol_table_partA.cpp infotoconsole.cpp
+	link symbol_table_partA.obj infotoconsole.obj
 	symbol_table_partA test4.c
 	
+buildoldA:
+	cl /c /EHsc symbol_table_partA.cpp infotoconsole.cpp
+	link symbol_table_partA.obj infotoconsole.obj
+	symbol_table_partA test4.c
+
 exeA:
 	symbol_table_partA test4.c
 

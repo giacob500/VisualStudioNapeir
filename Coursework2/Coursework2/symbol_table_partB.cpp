@@ -25,11 +25,13 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 	for (int i = 0; i < lines.size(); i++)
 	{
 		identifier row;
+		row.timesReferenced = 0;
 		row.lineNumber = i + 1; // Track line number of identifier declaration
 		for (int j = 0; j < lines[i].size(); j++)
 		{
 			// Increse references if token matches identifier name
-			/* USE THIS IN BINARY TREE CLASS
+			// USE THIS IN BINARY TREE CLASS
+			/*
 			for (int g = 0; g < identifiers.size(); g++) {
 				size_t bracketPosition = identifiers[g].identifierName.find("(");
 				if (lines[i][j] == identifiers[g].identifierName) {
@@ -41,7 +43,7 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 					identifiers[g].identifierName.substr(bracketPosition + 1) == currentFunction + ")") {
 					identifiers[g].timesReferenced++;
 				}
-			}*/					
+			}	*/			
 			// Recognise struct
 			if (j < lines[i].size() - 1 && lines[i][j] == "struct") {
 				types.push_back(lines[i][j + 1]);
@@ -160,6 +162,7 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 							}
 						}
 						if (row1.identifierType != lines[i][j]) {
+							row1.timesReferenced = 0;
 							identifiers.push_back(row1);
 							//cout << currentFunction << endl;
 							mytree.insert(row1, currentFunction);
@@ -172,7 +175,6 @@ void writeOutputFileUsingBST(vector<vector<string>> lines)
 	}
 
 	cout<<"\n"<<endl;
-	cout << identifiers[4].timesReferenced << endl;
 	mytree.print_tree();
 }
 

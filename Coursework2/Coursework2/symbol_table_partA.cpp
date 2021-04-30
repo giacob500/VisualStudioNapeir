@@ -23,7 +23,6 @@ struct identifier {
 	int timesReferenced = 0;
 };
 */
-
 void writeOutputFile(vector<vector<string>> lines)
 {
 	int line = 0;
@@ -40,6 +39,7 @@ void writeOutputFile(vector<vector<string>> lines)
 	for (int i = 0; i < lines.size(); i++)
 	{
 		identifier row;
+		row.timesReferenced = 0;
 		row.lineNumber = i + 1; // Track line number of identifier declaration
 		for (int j = 0; j < lines[i].size(); j++)
 		{
@@ -107,18 +107,18 @@ void writeOutputFile(vector<vector<string>> lines)
 				else if (lines[i].size() >= 3) {
 					row.identifierName = lines[i][1];
 				}
-				if(insideMainFunction == false)
+				if (insideMainFunction == false)
 					row.identifierName += " (" + currentFunction + ")";
 			}
 			// Check if inside main starts here ---
 			if (insideMainFunction == true) {
 				mainStarted = true;
 				if (lines[i][j] == "{") {
-					scope.push_back("{");					
+					scope.push_back("{");
 				}
 				if (scope.size() > 0 && lines[i][j] == "}")
 					scope.pop_back();
-			}	
+			}
 		}
 		//if (mainStarted == true && scope.size() == 0)
 		//	insideMainFunction == false;
@@ -171,6 +171,7 @@ void writeOutputFile(vector<vector<string>> lines)
 							}
 						}
 						if (row1.identifierType != lines[i][j]) {
+							row1.timesReferenced = 0;
 							identifiers.push_back(row1);
 						}
 					}
@@ -204,7 +205,7 @@ int main(int argc, char** argv)
 		{
 			vector<string> tokens;
 			vector<vector<string>> lines;
-			ifstream file("test_files/" + (string)argv[1]);
+			ifstream file("test_files/test4.c");
 			string line;
 			string token;
 			while (getline(file, line))

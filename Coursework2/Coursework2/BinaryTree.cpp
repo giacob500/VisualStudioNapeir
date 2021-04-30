@@ -40,11 +40,21 @@ void BinaryTree::insert_helper(node** root, identifier& new_identifier, string c
 		(*root)->left = nullptr;
 		(*root)->right = nullptr;
 		(*root)->data = new_identifier;
-		//cout << "Node inserted" << endl;
+		cout << "Node inserted" << endl;
 	}
 	else
 	{
-		if (new_identifier.identifierName < (*root)->data.identifierName)
+		size_t bracketPosition = new_identifier.identifierName.find("(");
+		cout << currentFunction << " - " << new_identifier.identifierName << " - " << (*root)->data.identifierName << endl;
+		if ((*root)->data.identifierName == new_identifier.identifierName) {
+			(*root)->data.timesReferenced++;
+		}
+		else if (bracketPosition != string::npos &&
+			(*root)->data.identifierName == new_identifier.identifierName.substr(0, bracketPosition - 1) &&
+			new_identifier.identifierName.substr(bracketPosition + 1) == currentFunction + ")") {
+			(*root)->data.timesReferenced++;
+		}
+		else if (new_identifier.identifierName < (*root)->data.identifierName)
 		{
 			//The new word comes before root alphabetically, so go left.
 			//cout << "Moved to left" << endl;
@@ -99,7 +109,7 @@ void BinaryTree::print_tree_helper(node* root)
 			<< to_string(root->data.lineNumber) << ", "
 			<< root->data.whatIs << ", "
 			<< root->data.identifierType << ", "
-			<< to_string(root->data.timesReferenced) << endl;
+			<< "referenced " << to_string(root->data.timesReferenced) << endl;
 		print_tree_helper(root->right);
 	}
 }
