@@ -1,3 +1,6 @@
+// Author: Giacomo Lorenzi
+// Function to prompt informations about a c file to console
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -7,17 +10,12 @@ using namespace std;
 
 void infoToConsole(vector<vector<string>> lines)
 {
-	// Determine all possible types a variable could be
-	vector<string> types = infoToConsole();
-	//vector<string> types{ "void", "char", "short", "int", "long", "long long", "float", "double",
-	//						"char*", "short*", "int*", "long*", "long long*", "float*", "double*" };
-
-	// Counters - FIRST PART
 	int variables = 0;
 	int functions = 0;
 	int ifstatements = 0;
 	int whileloops = 0;
 	int forloops = 0;
+	vector<string> types = typesVector();
 
 	for (int i = 0; i < lines.size(); i++) {
 		for (int j = 0; j < lines[i].size(); j++)

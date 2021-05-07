@@ -1,3 +1,6 @@
+// Author: Giacomo Lorenzi
+// Function to prompt informations about a c file to console
+
 #pragma once
 
 #include <string>

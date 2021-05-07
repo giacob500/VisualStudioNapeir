@@ -1,84 +1,71 @@
-//Author: Giacomo Lorenzi
-//Implementation of a binary search tree class
+// Author: Giacomo Lorenzi
+// Implementation of a binary search tree class
 
 #include "BinaryTree.h"
 #include <iostream>
 #include <string>
 using namespace std;
 
-//Creates an empty tree
+// Constructor (creates an empty tree)
 BinaryTree::BinaryTree()
 {
 	root = nullptr;
 }
 
-//Destructor
+// Destructor
 BinaryTree::~BinaryTree()
 {
 	delete_tree(root);
 }
 
-//Inserts a new word
-void BinaryTree::insert(identifier& new_identifier, string currentFunction)
+// Inserts a new identifier
+void BinaryTree::insert(identifier& new_identifier)
 {
-	insert_helper(&root, new_identifier, currentFunction);
+	insert_helper(&root, new_identifier);
 }
 
-//Updates tree
+// Check for identifier's references to update
 void BinaryTree::update(std::string word, std::string currentFunction)
 {
 	update_helper(&root, word, currentFunction);
 }
 
-//Returns a string representation of the tree in alphabetical order (in order)
+// Prints a representation of the tree in alphabetical order
 void BinaryTree::print_tree()
 {
 	print_tree_helper(root);
 }
 
-//Private insert helper
-//Parameters: root -- the root node of the tree; new_identifier, a struct with word info to insert
-void BinaryTree::insert_helper(node** root, identifier& new_identifier, string currentFunction)
+// Private insert helper
+// Parameters: root, the root node of the tree; new_identifier, a struct with identfier's attributes
+void BinaryTree::insert_helper(node** root, identifier& new_identifier)
 {
 	if (*root == nullptr)
 	{
+		// Add identifier to the new BST's node
 		*root = new node();
 		(*root)->left = nullptr;
 		(*root)->right = nullptr;
 		(*root)->data = new_identifier;
-		//cout << "Node inserted" << endl;
 	}
 	else
-	{/*
-		size_t bracketPosition = (*root)->data.identifierName.find("(");
-		//cout << currentFunction << " - " << new_identifier.identifierName << " - " << (*root)->data.identifierName << endl;
-		if (new_identifier.identifierName == (*root)->data.identifierName) {
-			(*root)->data.timesReferenced++;
-		}
-		else if (bracketPosition != string::npos &&
-			new_identifier.identifierName == (*root)->data.identifierName.substr(0, bracketPosition - 1) &&
-			(*root)->data.identifierName.substr(bracketPosition + 1) == currentFunction + ")") {
-			(*root)->data.timesReferenced++;
-		}
-		if (new_identifier.identifierName == (*root)->data.identifierName) {
-			(*root)->data.timesReferenced++;
-		}
-		else */if (new_identifier.identifierName < (*root)->data.identifierName)
+	{
+		if (new_identifier.identifierName < (*root)->data.identifierName)
 		{
-			//The new word comes before root alphabetically, so go left.
-			//cout << "Moved to left" << endl;
-			insert_helper(&((*root)->left), new_identifier, currentFunction);
+			// The identifier's name comes before root alphabetically, so go left.
+			insert_helper(&((*root)->left), new_identifier);
 		}
 		else
 		{
-			//The new word comes after root alphabetically, so go right.
-			//cout << "Moved to right" << endl;
-			insert_helper(&((*root)->right), new_identifier, currentFunction);
+			// The identifier's name comes after root alphabetically, so go right.
+			insert_helper(&((*root)->right), new_identifier);
 		}
 	}
 }
 
-void BinaryTree::update_helper(node** root, std::string word, std::string currentFunction)
+// Private upadte helper
+// Parameters: root, the root node of the tree; word, to compare it with identifier's name; currentFunction, to compare it with identifier's scope
+void BinaryTree::update_helper(node** root, string word, string currentFunction)
 {
 	if (*root == nullptr)
 	{
@@ -86,36 +73,34 @@ void BinaryTree::update_helper(node** root, std::string word, std::string curren
 	}
 	else
 	{
-		size_t bracketPosition = (*root)->data.identifierName.find("(");
-		//cout << currentFunction << " - " << new_identifier.identifierName << " - " << (*root)->data.identifierName << endl;
-		if (word == (*root)->data.identifierName) {
+		size_t bracketPosition = (*root)->data.identifierName.find("(");	// If exists, save '(' position from identifier's name for later
+		if (word == (*root)->data.identifierName)
+		{
+			// If identifier's name equals to the word increase identifier's reference counter
 			(*root)->data.timesReferenced++;
 		}
 		else if (bracketPosition != string::npos &&
 			word == (*root)->data.identifierName.substr(0, bracketPosition - 1) &&
-			(*root)->data.identifierName.substr(bracketPosition + 1) == currentFunction + ")") {
-			(*root)->data.timesReferenced++;
-		}/*
-		if (new_identifier.identifierName == (*root)->data.identifierName) {
+			(*root)->data.identifierName.substr(bracketPosition + 1) == currentFunction + ")")
+		{
+			// If variable name equals to word and variable's function equals to current function increase identifier's reference counter
 			(*root)->data.timesReferenced++;
 		}
-		else */if (word < (*root)->data.identifierName)
+		else if (word < (*root)->data.identifierName)
 		{
-			//The new word comes before root alphabetically, so go left.
-			//cout << "Moved to left" << endl;
+			//The identifier's name comes before root alphabetically, so go left.
 			update_helper(&((*root)->left), word, currentFunction);
 		}
 		else
 		{
-			//The new word comes after root alphabetically, so go right.
-			//cout << "Moved to right" << endl;
+			//The identifier's name comes after root alphabetically, so go right.
 			update_helper(&((*root)->right), word, currentFunction);
 		}
 	}
 }
 
-//Private print_tree helper
-//Returns a string representation of the tree in alphabetical order
+// Private print_tree helper
+// Parameters: root, the root node of the tree
 void BinaryTree::print_tree_helper(node* root)
 {
 	if (root == nullptr)
@@ -123,6 +108,7 @@ void BinaryTree::print_tree_helper(node* root)
 		return;
 	}
 	else {
+		// Print a string representation of the tree in alphabetical order
 		print_tree_helper(root->left);
 		cout << root->data.identifierName << ", "
 			<< "line " << to_string(root->data.lineNumber) << ", "
@@ -133,8 +119,11 @@ void BinaryTree::print_tree_helper(node* root)
 	}
 }
 
+// Private delete_tree
+// Deletes tree
 void BinaryTree::delete_tree(node* root) {
 	if (root == nullptr) {
+		delete(root);
 		return;
 	}
 	delete_tree(root->left);

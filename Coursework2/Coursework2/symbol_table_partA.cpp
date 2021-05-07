@@ -1,3 +1,6 @@
+// Author: Giacomo Lorenzi
+// Main file used to form the program which analyze c files
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -5,9 +8,11 @@
 #include <vector>
 #include "identifier.h"
 #include "infotoconsole.h"
+#include "typesvector.h"
 #include "symbol_table_partA.h"
 using namespace std;
 
+// Function to write identifiers on output txt file
 void writeOutputFile(vector<vector<string>> lines)
 {
 	int line = 0;
@@ -17,15 +22,16 @@ void writeOutputFile(vector<vector<string>> lines)
 	string currentFunction = "";
 	vector<string> scope;
 	vector<identifier> identifiers;
-	// Determine all possible types a variable could be
-	vector<string> types{ "void", "char", "short", "int", "long", "long long", "float", "double",
-							"char*", "short*", "int*", "long*", "long long*", "float*", "double*" };
+	vector<string> types = typesVector();
 
+	// For each line in the c file
 	for (int i = 0; i < lines.size(); i++)
 	{
 		identifier row;
 		row.timesReferenced = 0;
-		row.lineNumber = i + 1; // Track line number of identifier declaration
+		row.lineNumber = i + 1; // Track line number where identifier is declared
+
+		// For each word in the line
 		for (int j = 0; j < lines[i].size(); j++)
 		{
 			// Increse references if token matches identifier name
@@ -75,7 +81,6 @@ void writeOutputFile(vector<vector<string>> lines)
 						}
 					}
 				}
-
 				if (arrayFound == 2) {
 					row.whatIs = "array";
 					row.identifierType += " []";
@@ -85,7 +90,7 @@ void writeOutputFile(vector<vector<string>> lines)
 						row.identifierName = lines[i][1];
 					}
 					else {
-						string varName = lines[i][j].substr(0, pos);     // get from 0 to "[" the end
+						string varName = lines[i][j].substr(0, pos);     // Get from 0 to "[" the end
 						row.identifierName = varName;
 					}
 				}
@@ -95,7 +100,7 @@ void writeOutputFile(vector<vector<string>> lines)
 				if (insideMainFunction == false)
 					row.identifierName += " (" + currentFunction + ")";
 			}
-			// Check if inside main starts here ---
+			// Check if is inside main function
 			if (insideMainFunction == true) {
 				mainStarted = true;
 				if (lines[i][j] == "{") {
@@ -105,10 +110,6 @@ void writeOutputFile(vector<vector<string>> lines)
 					scope.pop_back();
 			}
 		}
-		//if (mainStarted == true && scope.size() == 0)
-		//	insideMainFunction == false;
-		// Ends here ---
-
 
 		// Recognise for, where, if
 		if (lines[i].size() >= 14 &&
@@ -123,29 +124,19 @@ void writeOutputFile(vector<vector<string>> lines)
 				}
 			}
 		}
-		// Delete empty lines (to add at the check below)
-	/*
-		if (identifiers[i].identifierName == "" &&
-			identifiers[i].identifierType == "" &&
-			identifiers[i].whatIs == "" &&
-			identifiers[i].lineNumber == 0 &&
-			identifiers[i].timesReferenced == 0) {
-			auto ciao = identifiers.begin() + i;
-			identifiers.erase(identifiers.begin() + i);
-		}
-	}*/
-	// If identifier values are empty, don't add it to its vector
-		if (row.whatIs != "")
+
+		// If identifier is empty, don't add it to identifiers vector
+		if (row.identifierName != "")
 			identifiers.push_back(row);
 
+		// Check if function contains parameters
 		if (row.whatIs == "function") {
 			if (lines[i][lines[i].size() - 2] != "(" && lines[i][lines[i].size() - 1] == ")") {
-				// Found! This is a function with parameters
 				identifier row1;
 				row1.whatIs = "variable";
 				row1.lineNumber = i + 1;
-				//bool openBracket = false;
 				for (int j = 3; j < lines[i].size() - 1; j++) {
+					// Check for multiple parameters
 					if (lines[i][j] != ",") {
 						for (string type : types) {
 							if (lines[i][j] == type) {
@@ -161,7 +152,6 @@ void writeOutputFile(vector<vector<string>> lines)
 						}
 					}
 				}
-				// identifiers.push_back(row1); was here
 			}
 		}
 	}
@@ -190,16 +180,18 @@ int main(int argc, char** argv)
 		{
 			vector<string> tokens;
 			vector<vector<string>> lines;
-			ifstream file("test_files/test4.c");
+			ifstream file("test_files/" + (string)argv[1]);
 			string line;
 			string token;
+
+			// Tokenize input file
 			while (getline(file, line))
 			{
 				stringstream stream(line);
 				tokens.clear();
 				while (stream >> token)
 				{
-					// Fix long long problem (it is split by space)
+					// Fix long long problem (recognise the long long type and consider it as a single word)
 					if (token == "long") {
 						if (alreadyLong == false) {
 							alreadyLong = true;
@@ -222,9 +214,9 @@ int main(int argc, char** argv)
 
 				}
 				lines.push_back(tokens);
-				//tokens.push_back("\n");
 			}
 			file.close();
+
 			// Call the functions needed by the program 
 			infoToConsole(lines);
 			writeOutputFile(lines);

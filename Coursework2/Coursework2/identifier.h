@@ -1,5 +1,5 @@
 // Author: Giacomo Lorenzi
-// A struct to store a word together with its count
+// A struct to store identifier attributes
 
 #pragma once
 

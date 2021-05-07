@@ -1,26 +1,18 @@
-buildandexeA:
-	cl /c /EHsc symbol_table_partA.cpp infotoconsole.cpp typevectors.cpp
+buildall: buildA buildB
+
+buildA:
+	cl /c /EHsc symbol_table_partA.cpp infotoconsole.cpp typevectors.cpp typevectors.cpp
 	link symbol_table_partA.obj infotoconsole.obj typevectors.obj
-	symbol_table_partA test4.c
-	
-buildoldA:
-	cl /c /EHsc symbol_table_partA.cpp infotoconsole.cpp
-	link symbol_table_partA.obj infotoconsole.obj
-	symbol_table_partA test4.c
+	@echo symbol_table_partA.exe ready to execute!
 
-exeA:
-	symbol_table_partA test4.c
-
-buildandexeB:
+buildB:
 	cl /c /EHsc symbol_table_partB.cpp infotoconsole.cpp typevectors.cpp BinaryTree.cpp
 	lib BinaryTree.obj
 	link symbol_table_partB.obj infotoconsole.obj typevectors.obj BinaryTree.lib
-	symbol_table_partB test4.c
+	@echo symbol_table_partB.exe ready to execute!
 	
-exeB:
-	symbol_table_partB test4.c
-
 clean:
 	del *.obj
 	del *.lib
 	del *.exe
+	@echo directory cleaned!
